@@ -8,11 +8,6 @@ load_dotenv()
 def send_sms_alert(city: str, aqi: float, threshold: float):
     """
     Sends an SMS alert using Fast2SMS when AQI exceeds threshold.
-
-    Parameters:
-    - city (str): The district/city name
-    - aqi (float): Forecasted PM2.5 value
-    - threshold (float): AQI threshold to trigger the alert
     """
 
     api_key = os.getenv("FAST2SMS_API_KEY")
@@ -30,6 +25,12 @@ def send_sms_alert(city: str, aqi: float, threshold: float):
         f"⚕️ Stay indoors. Avoid outdoor activities."
     )
 
+    # ✅ Temporarily disabled SMS sending
+    print(f"🔕 [SIMULATION] SMS alert would be sent to {to_phone}:")
+    print(message)
+
+    # Uncomment below to re-enable real SMS sending
+    """
     url = "https://www.fast2sms.com/dev/bulkV2"
     headers = {
         "authorization": api_key
@@ -51,3 +52,4 @@ def send_sms_alert(city: str, aqi: float, threshold: float):
             print(f"❌ Failed to send SMS. Status: {response.status_code} Response: {response.text}")
     except Exception as e:
         print(f"❌ Exception occurred while sending SMS: {e}")
+    """
